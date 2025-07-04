@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
-from decouple import config
+from decouple import config, Csv
 
 load_dotenv()
 
@@ -135,6 +135,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN')
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', cast=Csv())
 
 CORS_ALLOW_CREDENTIALS = False
