@@ -26,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+
+SECRET_KEY = "django-insecure-fno)!zko_j5yd_)g#pdad%u2@c8#!)lpf7on4+-!r_1f@%xhtt"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
+DEBUG = True
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -85,8 +86,17 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default' : dj_database_url.config(default=config('DATABASE_URL'))
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv('DB_NAME'),
+        'USER':os.getenv('DB_USER'),
+        'PASSWORD':os.getenv('DB_PASSWORD'),
+        'HOST':os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+
+    }
 }
 
 
@@ -135,6 +145,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', cast=Csv())
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    "http://127.0.0.1:5173",
 
-CORS_ALLOW_CREDENTIALS = False
+]
+
+CORS_ALLOW_CREDENTIALS = True
