@@ -2,6 +2,8 @@ import axios from "axios";
 
 const BaseURL = import.meta.env.VITE_API_URL;
 
+// const BaseULR = "http://127.0.0.1:8000/api/posts/"
+
 export const getAllPosts = () => axios.get(`${BaseURL}posts/`);
 
 export const createPost = (postData) => axios.post(`${BaseURL}posts/`, postData);

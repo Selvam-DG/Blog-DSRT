@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { createPost } from "../api/blogAPI";
+import { createPost } from "../api/blogAPI";
 
 export default function BlogForm(onPostCreated) {
     
