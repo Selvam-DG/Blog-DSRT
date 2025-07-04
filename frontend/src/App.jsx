@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// import BlogForm from './components/BlogForm';
+import BlogForm from './components/BlogForm';
 import BlogList from './components/BlogList';
 
 
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className='max-w-2xl mx-auto mt-10'>
-      {/* <BlogForm onPostCreated = {handlePostCreated}/> */}
+      <BlogForm onPostCreated = {handlePostCreated}/>
       <BlogList key={refresh}/>
      
     </div>
