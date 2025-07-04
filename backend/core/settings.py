@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
+from decouple import config
 
 load_dotenv()
 
@@ -24,11 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fno)!zko_j5yd_)g#pdad%u2@c8#!)lpf7on4+-!r_1f@%xhtt"
+SECRET_KEY = config(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = config(DEBUG)
 ALLOWED_HOSTS = []
 
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    'whitenoies.runserver_nostatic',
     "django.contrib.staticfiles",
     'corsheaders',
     'blog',
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.whiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -83,15 +86,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('DB_NAME'),
-        'USER':os.getenv('DB_USER'),
-        'PASSWORD':os.getenv('DB_PASSWORD'),
-        'HOST':os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-
-    }
+    'default' : dj_database_url.config(default=config('DATABASE_URL'))
 }
 
 
@@ -130,6 +125,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise,storage.CompressedManifestStaticFileStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -138,10 +135,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    "http://127.0.0.1:5173",
+CORS_ALLOWED_ORIGINS = config(CORS_ALLOWED_ORIGIN)
 
-]
-
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False

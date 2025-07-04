@@ -53,14 +53,5 @@ npm run dev
 ```
 
 
-5 Habits of Highly Effective Developers
-5-habits-of-effective-developers
 
-Becoming a great developer is not just about mastering frameworks or languages. It's also about building strong habits that enhance productivity and long-term success.
 
-1. **Consistency beats intensity** => Code a little every day
-2. Read the docs => It saves time in the long run
-3. Write clean code => Future-you or your team will thank you
-4. Take breaks => Avoid burnout and keep your creativity flowing
-
-These habits may seem small, but overtime they compound into real growth
