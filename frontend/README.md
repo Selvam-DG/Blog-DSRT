@@ -1,12 +1,54 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#  Frontend - React (Vite) + TailwindCSS
 
-Currently, two official plugins are available:
+This is the frontend for the blog project. It connects to the DRF backend to fetch and display blog posts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Live URL 
 
-## Expanding the ESLint configuration
+Frontend deployed on **Vercel**:  
+[https://blog-drp.vercel.app/](https://blog-drp.vercel.app/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features 
+
+- Display list of posts from API
+- Post details view
+- Responsive UI with TailwindCSS
+
+## 📦 Tech Stack
+
+- React (Vite)
+- TailwindCSS
+- Axios (for API calls)
+- React Router (for navigation)
+
+## 🚀 Getting Started
+
+### 1. Clone & Install
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### 2. Environment Variables
+Create a .env file in the root of frontend/:
+``` env
+VITE_API_BASE_URL=https://your-backend-url.onrender.com/api/
+
+```
+## Project Structure
+```
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
+├── public/
+└── tailwind.config.js
+```
+## Deployment
+Frontend is deployed to Vercel:
+- Make sure VITE_API_BASE_URL is set correctly in Vercel’s environment settings.
+- Build output: dist
