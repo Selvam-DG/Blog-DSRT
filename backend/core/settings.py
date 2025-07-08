@@ -44,10 +44,20 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     'whitenoise.runserver_nostatic',
     "django.contrib.staticfiles",
+    'django.contrib.sites',
     'corsheaders',
     'blog',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    'users',
 ]
+
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -59,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
     
     
 ]
@@ -152,3 +163,28 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+# configure sites framework and auth
+SITE_ID = 1
+AUTH_USER_MODEL = 'users.user'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+
+# email verification
+
+ACCOUNT_LOGIN_METHODS = {"username", "email"}  # Set of login fields
+ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
+
+# Redirect after email confirmation
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+  # for dev
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.UserRegisterSerializer',
+}
+ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
