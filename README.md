@@ -31,8 +31,8 @@ blog/
 
 ## 🚀 Live Demos
 
-- **Frontend** (Vercel): [https://blog-drp.vercel.app/](https://blog-drp.vercel.app/)
-- **Backend API** (Render): [https://blog-drm.onrender.com/api/](https://blog-drm.onrender.com/api/)
+- **Frontend** (Vercel): [Demo](https://blog-drp.vercel.app/)
+- **Backend API** (Render): [Demo](https://blog-drm.onrender.com/api/)
 
 ## 🛠️ Getting Started Locally
 
