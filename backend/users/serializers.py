@@ -8,5 +8,12 @@ class UserRegisterSerializer(RegisterSerializer):
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
         data['full_name'] = self.validated_data.get('full_name', '')
-        data['contact'] = self.validate_data.get('contact', '')
+        data['contact'] = self.validated_data.get('contact', '')
         return data
+
+    def save(self, request):
+        user = super().save(request)
+        user.full_name =  self.validated_data.get('full_name', '')
+        user.contact = self.validated_data.get('contact', '')
+        user.save()
+        return user
