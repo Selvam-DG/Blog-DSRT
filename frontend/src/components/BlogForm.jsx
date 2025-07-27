@@ -10,11 +10,10 @@ export default function BlogForm(onPostCreated) {
     const [slug, setSlug] = useState('');
     const [ content, setContent ] = useState('');
     const navigate  = useNavigate();
-    console.log(token);
     const handleSubmit = async(e) => {
 
         e.preventDefault();
-        const res = await fetch(`${BaseURL}/api/posts/`,{
+        const res = await fetch(`${BaseURL}/api/blogPosts/`,{
             method: 'POST',
             headers : {
                 'Content-Type': 'application/json',
