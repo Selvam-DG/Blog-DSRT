@@ -15,7 +15,7 @@ export default function Navbar() {
                     <Link to="/signup" className="hover:underline">Signup</Link>
                 </>}
                 {user && <>
-                <span>{user.emial}</span>
+                <span>{user.email}</span>
                 <Link to="/create" className="hover:underline">Create Post</Link>
                 <button onClick={logout} className="hover:underline">Logout</button>
                 </>}
