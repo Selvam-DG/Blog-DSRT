@@ -156,13 +156,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    "http://127.0.0.1:5173",
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', cast=Csv())
 
-]
-
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 # configure sites framework and auth
 SITE_ID = 1
 AUTH_USER_MODEL = 'users.User'
