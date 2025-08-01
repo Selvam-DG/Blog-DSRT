@@ -26,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+
+SECRET_KEY = "django-insecure-fno)!zko_j5yd_)g#pdad%u2@c8#!)lpf7on4+-!r_1f@%xhtt"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
+DEBUG = True
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -43,10 +44,20 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     'whitenoise.runserver_nostatic',
     "django.contrib.staticfiles",
+    'django.contrib.sites',
     'corsheaders',
     'blog',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    'users',
 ]
+
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -58,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
     
     
 ]
@@ -85,8 +97,17 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default' : dj_database_url.config(default=config('DATABASE_URL'))
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv('DB_NAME'),
+        'USER':os.getenv('DB_USER'),
+        'PASSWORD':os.getenv('DB_PASSWORD'),
+        'HOST':os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+
+    }
 }
 
 
@@ -135,6 +156,37 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', cast=Csv())
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    "http://127.0.0.1:5173",
 
-CORS_ALLOW_CREDENTIALS = False
+]
+
+CORS_ALLOW_CREDENTIALS = True
+# configure sites framework and auth
+SITE_ID = 1
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+}
+
+# email verification
+
+ACCOUNT_LOGIN_METHODS = {"username", "email"}  # Set of login fields
+ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
+
+# Redirect after email confirmation
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+  # for dev
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.UserRegisterSerializer',
+}
+ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
